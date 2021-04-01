@@ -2,15 +2,33 @@ package org.academiadecodigo.javabank.command;
 
 import org.academiadecodigo.javabank.persistence.model.Customer;
 
+import javax.validation.constraints.*;
+
 /**
  * The {@link Customer} data transfer object
  */
 public class CustomerDto {
 
     private Integer id;
+
+    @NotNull(message = "first name is mandatory")
+    @NotBlank(message = "first name is mandatory")
+    @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Only characters allowed")
+    @Size(min=3, max=64)
     private String firstName;
+
+    @NotNull(message = "last name is mandatory")
+    @NotBlank(message = "last name is mandatory")
+    @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Only characters allowed")
+    @Size(min=3, max=64)
     private String lastName;
+
+    @Email
+    @Pattern(regexp = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])", message = "invalid email")
     private String email;
+
+    @Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "invalid phone number")
+    @Size(min=9, max=16)
     private String phone;
 
     /**
